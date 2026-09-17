@@ -178,10 +178,8 @@ Abaixo está o dicionário de dados completo, com todas as entidades e atributos
 \---
 
 ## 7\. Diagrama Entidade-Relacionamento (DER)
+!\[Diagrama Entidade Relacionamento]<img width="1269" height="765" alt="diagrama" src="https://github.com/user-attachments/assets/8fdb0a65-903a-4281-bb04-a3f3ea9534f3" />
 
-*(Aqui o grupo deve anexar a imagem do diagrama conceitual gerado no brModelo ou Lucidchart)*
-
-!\[Diagrama Entidade Relacionamento](./der\_academia.png)
 
 \---
 
