@@ -8,7 +8,7 @@
 * **Nome do Aluno 2:** Pedro Henrique Ruola Coiado - **RGM:** 47589124
 * **Nome do Aluno 3:** Raphaela Gonçalves Neves - **RGM:** 47656166
 * **Nome do Aluno 4:** Williams Vargas Neves Paoli dos Santos - **RGM:** 47336820
-* **Professor/Disciplina:** \[Nome do Professor] - Modelagem de Banco de Dados
+* **Professor/Disciplina:** Cid Rodrigues De Andrade - Modelagem de Banco de Dados
 
 \---
 
