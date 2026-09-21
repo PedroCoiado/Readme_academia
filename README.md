@@ -12,16 +12,43 @@
 
 \---
 
+# Título 
+Modelagem de Banco de Dados Relacional para o Sistema de Gestão da Academia Base Forte Leste.
+
+## Introdução
+A academia de artes marciais Base Forte Leste enfrenta atualmente uma crise operacional decorrente da ausência de um sistema informatizado de gestão. Todo o controle administrativo é feito por meio de fichas de papel preenchidas manualmente no ato da matrícula e por tratativas informais via WhatsApp, sem qualquer padronização ou centralização das informações. Essa fragilidade estrutural gera três problemas críticos para o negócio: atrasos recorrentes no pagamento das mensalidades, que vencem todo 5º dia útil sem que a inadimplência seja formalmente registrada ou monitorada; total ausência de controle sobre a frequência dos alunos nas aulas, o que impede qualquer análise objetiva de assiduidade e dificuldade em rastrear o tempo real de treino de cada aluno, informação essencial para embasar a concessão de exames de faixa, hoje decidida apenas pela percepção visual do professor. Diante disso, evidencia-se a necessidade de estruturar um banco de dados relacional capaz de organizar e integrar essas informações.
+
+## Desenvolvimento
+O objetivo geral deste trabalho é desenvolver o modelo conceitual (DER) de um banco de dados relacional para dar suporte à gestão administrativa e pedagógica da academia Base Forte Leste, centralizando os dados hoje dispersos entre fichas físicas e conversas informais.
+
+Como objetivos específicos, o grupo busca:
+
+Modelar o cadastro de alunos, contemplando dados pessoais, técnicos e situação cadastral (ativo, inativo ou trancado);
+Modelar o cadastro de professores, vinculando-os às respectivas modalidades de ensino;
+Estruturar o controle de turmas, respeitando o limite de 30 alunos por turma e a associação entre modalidade, horários e professor.
+Registrar de forma sistemática os pagamentos de mensalidade, identificando plano contratado e data de pagamento, de modo a permitir o acompanhamento da inadimplência
+Viabilizar o registro diário de frequência dos alunos, criando a base de dados necessária para subsidiar decisões de graduação;
+Registrar o histórico de graduações e exames de faixa realizados por cada aluno.
+Este trabalho delimita-se à modelagem conceitual do banco de dados, não contemplando sua implementação física nem o desenvolvimento de uma aplicação de software. O escopo abrange exclusivamente os processos de cadastro de alunos, professores e turmas, controle de mensalidades, registro de frequência e histórico de graduação, por serem os pontos críticos apontados pelo CEO Adalberto na entrevista de campo. Ficam fora do escopo desta entrega questões como a integração futura com sistemas de catraca por reconhecimento facial (prevista apenas como requisito não funcional de compatibilidade futura) e qualquer módulo de venda de produtos ou suplementos, tema descartado ainda na fase de levantamento de requisitos por não fazer parte da demanda original da academia.
+
+
 ## 1\. Caracterização da Organização
 
 * **Nome e natureza da organização:** Base Forte Leste - Academia de Artes Marciais (Gerida pelo CEO Adalberto). É uma organização com fins lucrativos voltada para a prestação de serviços esportivos e ensino de lutas.
 * **Contexto e porte:** Organização de pequeno porte. A academia oferece 6 modalidades (Muay Thai, Kickboxing, Jiu-Jitsu, Boxe, Capoeira e No-Gi). As turmas são divididas por horários e possuem um limite de até 30 alunos por turma.
 * **Problemas e necessidades identificados:** Atualmente, a academia enfrenta uma crise operacional devido ao uso exclusivo de fichas de papel e tratativas informais pelo WhatsApp. Os principais problemas são: atrasos recorrentes no pagamento das mensalidades (que vencem todo 5º dia útil e os atrasos não são registrados), total falta de controle sobre a frequência/presença dos alunos e dificuldade para rastrear o tempo de treino real para exames de faixa.
+  
 * **Justificativa da escolha:** A organização foi escolhida pela facilidade de acesso ao gestor (CEO Adalberto) e por ser um cenário perfeito para iniciantes em banco de dados: possui regras de negócio claras e uma necessidade urgente de centralização de dados para resolver problemas financeiros e operacionais.
-* **Evidências da organização:**
+  
+* **Evidências da organização:
+- Endereço completo: Rua Itinguçu, 2345A, Vila Ré, São Paulo – SP
+- Responsável: Adalberto (CEO)
+- Telefone: (11) 98495-5601 
+- E-mail: basefortelesteacademia@gmail.com
+- Rede social: Instagram @basefortelesteacademia
 
   * *Entrevista de Campo:* Realizada presencialmente em 01/09/2026 pelo aluno Nickolas Henrique Bezerra com o CEO Adalberto.
-  * *Endereço e Contato:* \[Inserir o endereço real da academia aqui e o link do Google Maps/Instagram, se houver].
+
 
 \---
 
