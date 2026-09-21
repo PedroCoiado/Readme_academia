@@ -21,7 +21,7 @@ O objetivo geral deste trabalho é desenvolver o modelo conceitual (DER) de um b
 
 Como objetivos específicos, o grupo busca:
 
-Modelar o cadastro de alunos, contemplando dados pessoais, técnicos e situação cadastral (ativo, inativo ou trancado);
+Modelar o cadastro de alunos, contemplando dados pessoais, problema de saúde e situação cadastral (ativo, inativo ou trancado);
 Modelar o cadastro de professores, vinculando-os às respectivas modalidades de ensino;
 Estruturar o controle de turmas, respeitando o limite de 30 alunos por turma e a associação entre modalidade, horários e professor.
 Registrar de forma sistemática os pagamentos de mensalidade, identificando plano contratado e data de pagamento, de modo a permitir o acompanhamento da inadimplência
@@ -64,9 +64,9 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 
 ### 3.1 Requisitos Funcionais (O que o sistema deve fazer)
 
-* **RF01:** O sistema deve permitir o cadastro de alunos salvando nome, CPF, idade, tipo sanguíneo, histórico de treinos anteriores e situação (Ativo, Inativo ou Trancado).
-* **RF02:** O sistema deve permitir o cadastro de professores e instrutores, vinculando cada um à sua respectiva modalidade.
-* **RF03:** O sistema deve permitir o cadastro de turmas, definindo a modalidade, os dias/horários das aulas e associando um professor e um instrutor responsável.
+* **RF01:** O sistema deve permitir o cadastro de alunos salvando nome, CPF, idade, problema de saúde histórico de treinos anteriores e situação (Ativo, Inativo ou Trancado).
+* **RF02:** O sistema deve permitir o cadastro de professores sejam vinculando cada um à sua respectiva modalidade.
+* **RF03:** O sistema deve permitir o cadastro de turmas, definindo a modalidade, os dias/horários das aulas e associando um professor responsável.
 * **RF04:** O sistema deve registrar os pagamentos das mensalidades, identificando o plano escolhido (mensal, trimestral, anual ou família) e a data do pagamento.
 * **RF05:** O sistema deve registrar a frequência diária (presença) dos alunos nas aulas.
 * **RF06:** O sistema deve permitir o registro do histórico de graduações e exames de faixa dos alunos com suas respectivas datas.
@@ -84,7 +84,19 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 
 ## 4\. Regras de Negócio (Restrições e regras de funcionamento)
 
-(A adicionar).
+ Um aluno pode praticar mais de uma modalidade, limitado apenas por sua disponibilidade de horário (relação N:N entre Aluno e Turma, mediada pela Matrícula).
+- Um aluno só pode ter o status "trancado" em caso de lesão comprovada; o atributo de status exige um motivo de trancamento associado.
+- O status do aluno segue um domínio fechado de valores: *ativo* (mensalidade em dia), *inativo* ou *trancado* (por lesão).
+- Cada professor leciona exclusivamente em sua modalidade de especialização (restrição de integridade entre Usuário, no papel de Professor, e Modalidade).
+- Uma modalidade pode ter várias turmas, divididas por horário e dia da semana.
+- Uma turma não pode receber novas matrículas ao atingir 30 alunos.
+- O "instrutor auxiliar" não é uma entidade própria: é um papel que um Aluno assume dentro de uma turma, condicionado à sua graduação — na prática, o aluno mais graduado daquela turma/modalidade, que auxilia o professor responsável.
+- A data de matrícula é sempre registrada no cadastro (atributo obrigatório).
+- Existem quatro planos de mensalidade (mensal, trimestral, anual e família), cada um com preços e condições próprias.
+- Descontos são vinculados ao plano contratado, nunca ao aluno isoladamente.
+- O vencimento da mensalidade ocorre sempre no quinto dia útil do mês.
+- Se o aluno ultrapassar a data de vencimento sem confirmação de pagamento, o acesso à academia é bloqueado.
+
 
 \---
 
