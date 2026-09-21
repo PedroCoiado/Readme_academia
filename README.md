@@ -90,7 +90,7 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 - Cada professor leciona exclusivamente em sua modalidade de especialização (restrição de integridade entre Usuário, no papel de Professor, e Modalidade).
 - Uma modalidade pode ter várias turmas, divididas por horário e dia da semana.
 - Uma turma não pode receber novas matrículas ao atingir 30 alunos.
-- O "instrutor auxiliar" não é uma entidade própria: é um papel que um Aluno assume dentro de uma turma, condicionado à sua graduação — na prática, o aluno mais graduado daquela turma/modalidade, que auxilia o professor responsável.
+- O "instrutor auxiliar" não é uma entidade própria: é um papel que um Aluno assume dentro de uma turma, condicionado à sua graduação na prática, o aluno mais graduado daquela turma/modalidade, que auxilia o professor responsável.
 - A data de matrícula é sempre registrada no cadastro (atributo obrigatório).
 - Existem quatro planos de mensalidade (mensal, trimestral, anual e família), cada um com preços e condições próprias.
 - Descontos são vinculados ao plano contratado, nunca ao aluno isoladamente.
