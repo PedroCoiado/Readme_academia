@@ -94,7 +94,7 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 - A data de matrícula é sempre registrada no cadastro (atributo obrigatório).
 - Existem quatro planos de mensalidade (mensal, trimestral, anual e família), cada um com preços e condições próprias.
 - Descontos são vinculados ao plano contratado, nunca ao aluno isoladamente.
-- O vencimento da mensalidade ocorre sempre no quinto dia útil do mês.
+- O vencimento da mensalidade ocorre sempre no quinto dia útil do mês
 - Se o aluno ultrapassar a data de vencimento sem confirmação de pagamento, o acesso à academia é bloqueado.
 
 
