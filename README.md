@@ -1,7 +1,5 @@
 # Entrega 1 - Modelo Conceitual (DER)
 
-**Sistema de Gestão de Informações para Academia de Artes Marciais**
-
 ## Metadados
 
 * **Nome do Aluno 1:** Nickolas Henrique Bezerra - **RGM:** 47685778
