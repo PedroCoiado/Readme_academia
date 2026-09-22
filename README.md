@@ -2,7 +2,7 @@
 
 ## Metadados
 
-* **Nome do Aluno 1:** Felipe - **RGM:** 
+* **Nome do Aluno 1:** Felipe Piazza Bononi- **RGM:** 47349361
 * **Nome do Aluno 2:** Nickolas Henrique Bezerra - **RGM:** 47685778
 * **Nome do Aluno 3:** Pedro Henrique Ruola Coiado - **RGM:** 47589124
 * **Nome do Aluno 4:** Raphaela Gonçalves Neves - **RGM:** 47656166
