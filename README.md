@@ -113,7 +113,7 @@ Abaixo está o dicionário de dados completo, com todas as entidades e atributos
 ### Entidades reconhecidas e justificativas:
 
 * **ALUNO:** Necessária para armazenar os dados pessoais, técnicos e a situação cadastral de quem treina.
-* **PROFESSOR / INSTRUTOR:** Registra quem ministra as aulas. Importante para o controle de turmas (já que cada turma tem um professor e um instrutor).
+* **PROFESSOR:** Registra quem ministra as aulas. Importante para o controle de turmas (já que cada turma tem um professor por modalidade).
 * **TURMA:** Entidade que organiza o cronograma de aulas, limitando a 30 alunos e vinculando a modalidade e os horários.
 * **PAGAMENTO:** Entidade essencial para resolver o problema de inadimplência, registrando as datas de pagamento e os planos.
 * **PRESENCA:** Criada para suprir a necessidade de controle de frequência, registrando os dias em que o aluno treinou para fins de graduação.
@@ -121,7 +121,7 @@ Abaixo está o dicionário de dados completo, com todas as entidades e atributos
 ### Relacionamentos principais:
 
 * **ALUNO possui PAGAMENTO (1,1 para 0,N):** Um pagamento pertence a um único aluno. Um aluno terá vários pagamentos ao longo do tempo.
-* **PROFESSOR e INSTRUTOR regem TURMA (1,1 para 0,N):** Cada turma precisa de um professor e um instrutor responsáveis.
+* **PROFESSOR rege TURMA (1,1 para 0,N):** Cada turma precisa de um professor e um instrutor responsáveis.
 * **TURMA possui ALUNOS (1,N para 0,N):** Uma turma tem vários alunos (máximo 30) e um aluno pode participar de mais de uma turma/modalidade.
 
 \---
