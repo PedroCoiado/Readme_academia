@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dicionário de Dados — Base Forte Leste</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #55555a;
+    --line: #cfcfcf;
+    --hair: #e6e6e6;
+    --accent: #7a1f1f;
+    --bg-soft: #f7f6f4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 56px 40px 100px;
+    background: #ffffff;
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  header.doc-header {
+    text-align: center;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+  }
+  header.doc-header .eyebrow {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  header.doc-header h1 {
+    font-size: 27px;
+    margin: 8px 0 4px;
+  }
+  header.doc-header .doc-sub {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  h2.sec {
+    font-size: 19px;
+    margin: 46px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--ink);
+  }
+  h3.entity {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 15px;
+    background: var(--bg-soft);
+    border-left: 4px solid var(--accent);
+    padding: 6px 10px;
+    margin: 34px 0 10px;
+  }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); font-style: italic; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    margin: 10px 0 18px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 7px 9px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--bg-soft);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  td.attr {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  td.pk { font-weight: 700; }
+
+  .notation {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+    margin: 0 0 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .leitura {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  .leitura::before {
+    content: "Leitura: ";
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .indices {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: -8px 0 6px;
+  }
+  .indices::before {
+    content: "Índices: ";
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  ul.entity-defs { padding-left: 20px; margin: 0 0 16px; }
+  ul.entity-defs li { margin-bottom: 4px; }
+
+  .card-note {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+  }
+
+  footer.doc-footer {
+    margin-top: 60px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-header">
+    <div class="eyebrow">Entrega 1 · Modelagem de Banco de Dados · Prof. Cid Rodrigues De Andrade</div>
+    <h1>Dicionário de Dados</h1>
+    <div class="doc-sub">Sistema de Gestão de Informações — Base Forte Leste (Academia de Artes Marciais)</div>
+  </header>
+
+  <!-- 1. MODELO CONCEITUAL -->
+  <h2 class="sec">1. Modelo conceitual</h2>
+  <p>Este modelo representa a gestão administrativa e pedagógica da academia Base Forte Leste, na qual cada aluno se matricula em turmas de uma ou mais modalidades, acumula presenças, pagamentos e, quando aplicável, graduações.</p>
+
+  <table>
+    <thead>
+      <tr><th>Entidade</th><th>Relaciona-se com</th><th>Cardinalidade</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>PROFESSOR</td><td>MODALIDADE</td><td>N:1 — vários professores podem se especializar na mesma modalidade, mas cada professor se especializa em exatamente uma</td></tr>
+      <tr><td>MODALIDADE</td><td>TURMA</td><td>1:N — uma modalidade pode ter várias turmas, divididas por horário e dia da semana</td></tr>
+      <tr><td>PROFESSOR</td><td>TURMA</td><td>1:N — um professor leciona várias turmas, mas cada turma tem um único professor responsável</td></tr>
+      <tr><td>ALUNO</td><td>MATRÍCULA</td><td>1:N — cada matrícula é de um único aluno, mas um aluno pode ter várias matrículas ao longo do tempo</td></tr>
+      <tr><td>TURMA</td><td>MATRÍCULA</td><td>1:N — cada matrícula pertence a uma única turma, mas uma turma reúne várias matrículas (até o limite de 30)</td></tr>
+      <tr><td>MATRÍCULA</td><td>PRESENÇA</td><td>1:N — cada presença refere-se a uma única matrícula, que acumula várias presenças ao longo do tempo</td></tr>
+      <tr><td>ALUNO</td><td>PAGAMENTO</td><td>1:N — cada pagamento é de um único aluno, que realiza vários pagamentos (mensalidades)</td></tr>
+      <tr><td>PLANO</td><td>PAGAMENTO</td><td>1:N — cada pagamento usa um único plano, mas o mesmo plano é usado em vários pagamentos de alunos diferentes</td></tr>
+      <tr><td>ALUNO</td><td>GRADUAÇÃO</td><td>1:N — cada graduação é de um único aluno, que pode acumular várias graduações</td></tr>
+      <tr><td>MODALIDADE</td><td>GRADUAÇÃO</td><td>1:N — cada graduação refere-se a uma única modalidade, que pode gerar várias graduações</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>MATRÍCULA</strong> é a entidade associativa entre ALUNO e TURMA: como um aluno pode praticar mais de uma modalidade e uma turma reúne vários alunos (relação N:N), a matrícula divide essa relação em duas partes simples (ALUNO–MATRÍCULA e TURMA–MATRÍCULA) e serve de base para PRESENÇA, que passa a se referir à matrícula, e não diretamente a aluno e turma isoladamente.</p>
+
+  <ul class="entity-defs">
+    <li><strong>Aluno</strong> é a pessoa física matriculada na academia para a prática de uma ou mais modalidades.</li>
+    <li><strong>Professor</strong> é a pessoa física responsável por ministrar aulas, especializada em exatamente uma modalidade.</li>
+    <li><strong>Modalidade</strong> é cada uma das seis práticas de luta oferecidas (Muay Thai, Kickboxing, Jiu-Jitsu, Boxe, Capoeira, No-Gi).</li>
+    <li><strong>Turma</strong> é o agrupamento de alunos em um horário fixo, vinculado a uma modalidade e a um professor responsável.</li>
+    <li><strong>Matrícula</strong> é o vínculo entre um aluno e uma turma específica, substituindo a identificação apenas por nome/CPF da ficha física.</li>
+    <li><strong>Presença</strong> é o registro de comparecimento do aluno em uma aula da turma em que está matriculado.</li>
+    <li><strong>Pagamento</strong> é o registro de cada mensalidade quitada por um aluno, referente a um plano contratado.</li>
+    <li><strong>Plano</strong> é cada uma das quatro modalidades de contratação da mensalidade (Mensal, Trimestral, Anual, Família), com preço e condições próprias.</li>
+    <li><strong>Graduação</strong> é o registro de avaliação de faixa (ou análise técnica, no caso do Boxe) de um aluno em uma modalidade.</li>
+  </ul>
+
+  <!-- 2. FLUXO DE DADOS -->
+  <h2 class="sec">2. Fluxo de dados (visão de DFD)</h2>
+  <p>Aluno procura a academia → cadastro em <strong>ALUNO</strong> → aluno se matricula em uma <strong>TURMA</strong> (vinculada a uma <strong>MODALIDADE</strong> e a um <strong>PROFESSOR</strong>), gerando uma <strong>MATRÍCULA</strong> → cada aula frequentada gera um registro de <strong>PRESENÇA</strong> vinculado a essa matrícula → mensalmente, o aluno realiza um <strong>PAGAMENTO</strong> referente ao <strong>PLANO</strong> contratado, com vencimento fixo no 5º dia útil → periodicamente, o professor avalia o aluno e, quando aplicável, registra uma <strong>GRADUAÇÃO</strong> vinculada à modalidade.</p>
+
+  <!-- 3. CONVENÇÕES -->
+  <h2 class="sec">3. Convenções do dicionário</h2>
+  <p>Nível de abstração: esta é uma entrega de <strong>modelo conceitual</strong>, sem implementação física definida. Os tipos indicados na coluna "Tipo físico" seguem a notação SQL padrão trabalhada em aula (Integer, Varchar(N), Date, Text, Real/Numeric, Boolean) como referência para a próxima etapa do projeto, e não representam ainda uma escolha de SGBD.</p>
+
+  <p><strong>Notação formal (símbolos usados neste dicionário):</strong></p>
+  <table>
+    <thead><tr><th>Símbolo</th><th>Significado</th></tr></thead>
+    <tbody>
+      <tr><td>=</td><td>é composto de</td></tr>
+      <tr><td>+</td><td>e (conecta elementos obrigatórios)</td></tr>
+      <tr><td>( )</td><td>opcional</td></tr>
+      <tr><td>{ }, n{ }m</td><td>iteração, com limite mínimo n e máximo m</td></tr>
+      <tr><td>[ | ]</td><td>escolha obrigatória entre alternativas</td></tr>
+      <tr><td>/ /</td><td>rótulo de um grupo repetitivo</td></tr>
+      <tr><td>@</td><td>identificador (chave primária)</td></tr>
+      <tr><td>* *</td><td>comentário, fora da estrutura formal</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Prefixos:</strong> NM_ nome, DT_ data, ID_ identificador (não sofre operação matemática), CD_ código de domínio, QT_ quantidade, TP_ tipo (categorização), IN_ indicador booleano. Este dicionário também usa DS_ (descrição/texto livre), NR_ (número que não sofre operação matemática, ex.: telefone), HR_ (horário) e VL_ (valor monetário) — não estão entre os sete prefixos-padrão do curso, mas seguem o mesmo princípio, à semelhança do uso de DS_ no estudo de caso de referência da disciplina e de VL_TITULO no exemplo de Título Financeiro visto em aula.</p>
+
+  <p style="font-size:12.5px;color:var(--muted);">Versão deste dicionário: v1.0 — preliminar, sujeita a revisão nas próximas entregas do projeto.</p>
+
+  <!-- 4. DICIONÁRIO POR ENTIDADE -->
+  <h2 class="sec">4. Dicionário de dados por entidade</h2>
+
+  <!-- ALUNO -->
+  <h3 class="entity">ALUNO</h3>
+  <div class="notation">ALUNO = @ID_ALUNO + CPF + NM_COMPLETO + DT_NASCIMENTO + (DS_ENDERECO) + (DS_EMAIL) +
+NR_TELEFONE + (NR_TELEFONE_RESERVA) + (DS_PROBLEMA_SAUDE) + (DS_ESPORTES_PRATICADOS) +
+[TP_ATIVO | TP_INATIVO | TP_TRANCADO] + (DS_MOTIVO_TRANCAMENTO)</div>
+  <p class="leitura">@ID_ALUNO é o identificador único; CPF, NM_COMPLETO, DT_NASCIMENTO e NR_TELEFONE são obrigatórios; os campos entre ( ) nem sempre são preenchidos no cadastro; [TP_ATIVO | TP_INATIVO | TP_TRANCADO] exige escolher exatamente uma situação, e DS_MOTIVO_TRANCAMENTO só é preenchido quando a escolha é TP_TRANCADO (Seção 4 — trancamento exige lesão comprovada).</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_ALUNO</td><td>integer</td><td>Sim (PK)</td><td>Código de localização do registro; não sofre operação matemática.</td></tr>
+      <tr><td class="attr">CPF</td><td>varchar(11)</td><td>Sim</td><td>Apenas dígitos, sem pontuação — mesmo padrão do CPF em PROFESSOR. Não pode ser duplicado.</td></tr>
+      <tr><td class="attr">NM_COMPLETO</td><td>varchar(150)</td><td>Sim</td><td>Nome completo do aluno.</td></tr>
+      <tr><td class="attr">DT_NASCIMENTO</td><td>date</td><td>Sim</td><td>Usada para cálculo de idade.</td></tr>
+      <tr><td class="attr">DS_ENDERECO</td><td>varchar(200)</td><td>Não</td><td>Endereço residencial.</td></tr>
+      <tr><td class="attr">DS_EMAIL</td><td>varchar(100)</td><td>Não</td><td>E-mail de contato.</td></tr>
+      <tr><td class="attr">NR_TELEFONE</td><td>varchar(15)</td><td>Sim</td><td>Telefone principal de contato.</td></tr>
+      <tr><td class="attr">NR_TELEFONE_RESERVA</td><td>varchar(15)</td><td>Não</td><td>Telefone alternativo/de emergência.</td></tr>
+      <tr><td class="attr">DS_PROBLEMA_SAUDE</td><td>text</td><td>Não</td><td>Dado sensível (RNF02); condições de saúde relevantes para emergências.</td></tr>
+      <tr><td class="attr">DS_ESPORTES_PRATICADOS</td><td>text</td><td>Não</td><td>Modalidades já praticadas; alimenta o histórico de treinos anteriores (RF01).</td></tr>
+      <tr><td class="attr">TP_ATIVO | TP_INATIVO | TP_TRANCADO</td><td>varchar(10)</td><td>Sim (escolha)</td><td>Situação cadastral; TP_TRANCADO exige lesão comprovada e motivo associado.</td></tr>
+      <tr><td class="attr">DS_MOTIVO_TRANCAMENTO</td><td>text</td><td>Não</td><td>Preenchido apenas quando a situação é TP_TRANCADO.</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_ALUNO (clusterizado); índice único em CPF; índice secundário em NM_COMPLETO (busca por nome na recepção).</p>
+
+  <!-- PROFESSOR -->
+  <h3 class="entity">PROFESSOR</h3>
+  <div class="notation">PROFESSOR = @ID_PROFESSOR + CPF + NM_COMPLETO + DT_NASCIMENTO + (DS_ENDERECO) + (DS_EMAIL) +
+NR_TELEFONE + (DS_PROBLEMA_SAUDE) + ID_MODALIDADE + TP_NIVEL_EXPERIENCIA + (DS_REGISTRO_QUALIFICACOES)</div>
+  <p class="leitura">ID_MODALIDADE é FK obrigatória — cada professor está vinculado a exatamente uma modalidade de especialização (RNF05), e só pode lecionar turmas dessa modalidade.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_PROFESSOR</td><td>integer</td><td>Sim (PK)</td><td>Identificador do professor.</td></tr>
+      <tr><td class="attr">CPF</td><td>varchar(11)</td><td>Sim</td><td>Mesmo padrão do CPF em ALUNO.</td></tr>
+      <tr><td class="attr">NM_COMPLETO</td><td>varchar(150)</td><td>Sim</td><td>Nome completo do professor.</td></tr>
+      <tr><td class="attr">DT_NASCIMENTO</td><td>date</td><td>Sim</td><td>—</td></tr>
+      <tr><td class="attr">DS_ENDERECO</td><td>varchar(200)</td><td>Não</td><td>—</td></tr>
+      <tr><td class="attr">DS_EMAIL</td><td>varchar(100)</td><td>Não</td><td>—</td></tr>
+      <tr><td class="attr">NR_TELEFONE</td><td>varchar(15)</td><td>Sim</td><td>—</td></tr>
+      <tr><td class="attr">DS_PROBLEMA_SAUDE</td><td>text</td><td>Não</td><td>Dado sensível (RNF02).</td></tr>
+      <tr><td class="attr">ID_MODALIDADE</td><td>integer</td><td>Sim (FK)</td><td>Referencia a modalidade de especialização do professor (RNF05).</td></tr>
+      <tr><td class="attr">TP_NIVEL_EXPERIENCIA</td><td>varchar(50)</td><td>Sim</td><td>Nível de graduação/experiência do professor na modalidade; valida a aptidão a lecionar.</td></tr>
+      <tr><td class="attr">DS_REGISTRO_QUALIFICACOES</td><td>text</td><td>Não</td><td>Certificações e qualificações comprobatórias.</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_PROFESSOR; índice único em CPF; índice em ID_MODALIDADE (listar professores por modalidade).</p>
+
+  <!-- MODALIDADE -->
+  <h3 class="entity">MODALIDADE</h3>
+  <div class="notation">MODALIDADE = @ID_MODALIDADE + NM_MODALIDADE + DT_INICIO_AULAS + IN_POSSUI_SISTEMA_FAIXAS +
+[TP_ATIVA | TP_INATIVA] + (DS_MOTIVO_INATIVACAO) + QT_VAGAS_OCUPADAS</div>
+  <p class="leitura">IN_POSSUI_SISTEMA_FAIXAS define se a entidade GRADUAÇÃO usa faixa ou análise técnica (ex.: Boxe); DS_MOTIVO_INATIVACAO só é preenchido quando a escolha é TP_INATIVA.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_MODALIDADE</td><td>integer</td><td>Sim (PK)</td><td>Identificador da modalidade.</td></tr>
+      <tr><td class="attr">NM_MODALIDADE</td><td>varchar(50)</td><td>Sim</td><td>Domínio fechado às 6 modalidades oferecidas.</td></tr>
+      <tr><td class="attr">DT_INICIO_AULAS</td><td>date</td><td>Sim</td><td>Data em que a modalidade passou a ser oferecida.</td></tr>
+      <tr><td class="attr">IN_POSSUI_SISTEMA_FAIXAS</td><td>boolean</td><td>Sim</td><td>Define se GRADUAÇÃO usa sistema de faixas.</td></tr>
+      <tr><td class="attr">TP_ATIVA | TP_INATIVA</td><td>varchar(10)</td><td>Sim (escolha)</td><td>Controla se novas turmas podem ser abertas.</td></tr>
+      <tr><td class="attr">DS_MOTIVO_INATIVACAO</td><td>text</td><td>Não</td><td>Preenchido apenas quando TP_INATIVA.</td></tr>
+      <tr><td class="attr">QT_VAGAS_OCUPADAS</td><td>integer</td><td>Sim</td><td>Soma das vagas ocupadas nas turmas da modalidade; apoia o limite de 30/turma.</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_MODALIDADE; índice único em NM_MODALIDADE.</p>
+
+  <!-- TURMA -->
+  <h3 class="entity">TURMA</h3>
+  <div class="notation">TURMA = @ID_TURMA + ID_MODALIDADE + ID_PROFESSOR + DS_DIA_SEMANA + HR_INICIO + HR_FIM</div>
+  <p class="leitura">ID_MODALIDADE e ID_PROFESSOR são FKs obrigatórias — cada turma pertence a exatamente uma modalidade e tem exatamente um professor responsável; um professor pode lecionar N turmas.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_TURMA</td><td>integer</td><td>Sim (PK)</td><td>Identificador da turma.</td></tr>
+      <tr><td class="attr">ID_MODALIDADE</td><td>integer</td><td>Sim (FK)</td><td>Modalidade à qual a turma pertence.</td></tr>
+      <tr><td class="attr">ID_PROFESSOR</td><td>integer</td><td>Sim (FK)</td><td>Professor responsável pela turma.</td></tr>
+      <tr><td class="attr">DS_DIA_SEMANA</td><td>varchar(20)</td><td>Sim</td><td>Dia(s) da semana em que a turma acontece.</td></tr>
+      <tr><td class="attr">HR_INICIO</td><td>time</td><td>Sim</td><td>Horário de início da aula.</td></tr>
+      <tr><td class="attr">HR_FIM</td><td>time</td><td>Sim</td><td>Horário de término da aula.</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_TURMA; índice em ID_MODALIDADE; índice em ID_PROFESSOR.</p>
+
+  <!-- MATRÍCULA -->
+  <h3 class="entity">MATRÍCULA</h3>
+  <div class="notation">MATRÍCULA = @ID_MATRICULA + ID_ALUNO + ID_TURMA + DT_MATRICULA +
+[TP_ATIVA | TP_CANCELADA | TP_TRANCADA] + (IN_INSTRUTOR_AUXILIAR)</div>
+  <p class="leitura">ID_ALUNO e ID_TURMA resolvem a relação N:N entre ALUNO e TURMA — um aluno pode ter várias matrículas (em turmas diferentes) e uma turma reúne várias matrículas, respeitando o limite de 30. IN_INSTRUTOR_AUXILIAR fica entre ( ) porque o papel é normalmente identificado pelo aluno mais graduado da turma/modalidade, mas o campo permite registro/ajuste manual pela academia — não é uma entidade própria.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_MATRICULA</td><td>integer</td><td>Sim (PK)</td><td>Identificador da matrícula.</td></tr>
+      <tr><td class="attr">ID_ALUNO</td><td>integer</td><td>Sim (FK)</td><td>Aluno vinculado à matrícula.</td></tr>
+      <tr><td class="attr">ID_TURMA</td><td>integer</td><td>Sim (FK)</td><td>Turma vinculada à matrícula.</td></tr>
+      <tr><td class="attr">DT_MATRICULA</td><td>date</td><td>Sim</td><td>Substitui a ficha física, que não gerava número de matrícula.</td></tr>
+      <tr><td class="attr">TP_ATIVA | TP_CANCELADA | TP_TRANCADA</td><td>varchar(20)</td><td>Sim (escolha)</td><td>Reflete a situação do aluno na turma específica.</td></tr>
+      <tr><td class="attr">IN_INSTRUTOR_AUXILIAR</td><td>boolean</td><td>Não</td><td>Indica se, nessa turma, o aluno exerce o papel informal de instrutor auxiliar.</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_MATRICULA; índice único composto em (ID_ALUNO, ID_TURMA); índice em ID_TURMA (checar limite de 30 alunos).</p>
+
+  <!-- PRESENÇA -->
+  <h3 class="entity">PRESENÇA</h3>
+  <div class="notation">PRESENÇA = @ID_PRESENCA + ID_MATRICULA + DT_AULA + HR_AULA + IN_PRESENCA</div>
+  <p class="leitura">ID_MATRICULA é a FK que liga a presença ao vínculo aluno-turma; uma matrícula gera N presenças ao longo do tempo.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_PRESENCA</td><td>integer</td><td>Sim (PK)</td><td>Identificador do registro de presença.</td></tr>
+      <tr><td class="attr">ID_MATRICULA</td><td>integer</td><td>Sim (FK)</td><td>Matrícula (aluno + turma) à qual a presença se refere.</td></tr>
+      <tr><td class="attr">DT_AULA</td><td>date</td><td>Sim</td><td>Data em que a aula ocorreu (RF05).</td></tr>
+      <tr><td class="attr">HR_AULA</td><td>time</td><td>Sim</td><td>Horário em que a aula ocorreu.</td></tr>
+      <tr><td class="attr">IN_PRESENCA</td><td>boolean</td><td>Sim</td><td>Base para a elegibilidade a exames de faixa (RF06).</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_PRESENCA; índice em ID_MATRICULA; índice composto em (ID_MATRICULA, DT_AULA) evitando presença duplicada no mesmo dia.</p>
+
+  <!-- PAGAMENTO -->
+  <h3 class="entity">PAGAMENTO</h3>
+  <div class="notation">PAGAMENTO = @ID_PAGAMENTO + ID_ALUNO + ID_PLANO + DT_PAGAMENTO +
+[TP_PAGO | TP_ATRASADO | TP_PENDENTE]</div>
+  <p class="leitura">ID_ALUNO e ID_PLANO são FKs obrigatórias; um aluno tem N pagamentos e um plano é usado em N pagamentos de alunos diferentes.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_PAGAMENTO</td><td>integer</td><td>Sim (PK)</td><td>Identificador do recebimento.</td></tr>
+      <tr><td class="attr">ID_ALUNO</td><td>integer</td><td>Sim (FK)</td><td>Aluno que realizou o pagamento.</td></tr>
+      <tr><td class="attr">ID_PLANO</td><td>integer</td><td>Sim (FK)</td><td>Plano ao qual o pagamento se refere.</td></tr>
+      <tr><td class="attr">DT_PAGAMENTO</td><td>date</td><td>Sim</td><td>Data em que o aluno realizou o pagamento.</td></tr>
+      <tr><td class="attr">TP_PAGO | TP_ATRASADO | TP_PENDENTE</td><td>varchar(20)</td><td>Sim (escolha)</td><td>Resolve a inadimplência hoje não registrada; vencimento padrão no 5º dia útil (RNF03); acesso é bloqueado se vencer sem confirmação (Seção 4).</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_PAGAMENTO; índice em ID_ALUNO; índice em ID_PLANO; índice em DT_PAGAMENTO (relatórios por período).</p>
+
+  <!-- PLANO -->
+  <h3 class="entity">PLANO</h3>
+  <div class="notation">PLANO = @ID_PLANO + [TP_MENSAL | TP_TRIMESTRAL | TP_ANUAL | TP_FAMILIA] +
+VL_MENSALIDADE + (VL_DESCONTO) + (DS_CONDICOES)</div>
+  <p class="leitura">Cada plano tem preço e condições próprias; descontos são vinculados ao plano, nunca ao aluno isoladamente (Seção 4), por isso VL_DESCONTO mora aqui e não em ALUNO.</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_PLANO</td><td>integer</td><td>Sim (PK)</td><td>Identificador do plano.</td></tr>
+      <tr><td class="attr">TP_MENSAL | TP_TRIMESTRAL | TP_ANUAL | TP_FAMILIA</td><td>varchar(20)</td><td>Sim (escolha)</td><td>Domínio fechado aos 4 planos oferecidos.</td></tr>
+      <tr><td class="attr">VL_MENSALIDADE</td><td>real/numeric</td><td>Sim</td><td>Valor cobrado no plano.</td></tr>
+      <tr><td class="attr">VL_DESCONTO</td><td>real/numeric</td><td>Não</td><td>Desconto vinculado ao plano, nunca ao aluno isoladamente.</td></tr>
+      <tr><td class="attr">DS_CONDICOES</td><td>text</td><td>Não</td><td>Condições específicas do plano (ex.: fidelidade, forma de pagamento).</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_PLANO; índice único no tipo de plano (evita dois registros para o mesmo plano).</p>
+
+  <!-- GRADUAÇÃO -->
+  <h3 class="entity">GRADUAÇÃO</h3>
+  <div class="notation">GRADUAÇÃO = @ID_GRADUACAO + ID_ALUNO + ID_MODALIDADE + (TP_NIVEL_FAIXA) + DT_GRADUACAO + (DS_OBSERVACAO)</div>
+  <p class="leitura">ID_ALUNO e ID_MODALIDADE são FKs; um aluno tem N graduações e uma modalidade gera N graduações. TP_NIVEL_FAIXA fica entre ( ) porque só se aplica nas modalidades com sistema de faixas (validado por MODALIDADE.IN_POSSUI_SISTEMA_FAIXAS); DS_OBSERVACAO complementa quando não há faixa (ex.: Boxe).</p>
+  <table>
+    <thead><tr><th>Atributo</th><th>Tipo físico</th><th>Obrigatório</th><th>Significado e relevância</th></tr></thead>
+    <tbody>
+      <tr><td class="attr pk">ID_GRADUACAO</td><td>integer</td><td>Sim (PK)</td><td>Identificador do registro de graduação.</td></tr>
+      <tr><td class="attr">ID_ALUNO</td><td>integer</td><td>Sim (FK)</td><td>Aluno avaliado.</td></tr>
+      <tr><td class="attr">ID_MODALIDADE</td><td>integer</td><td>Sim (FK)</td><td>Modalidade referente à graduação.</td></tr>
+      <tr><td class="attr">TP_NIVEL_FAIXA</td><td>varchar(30)</td><td>Não</td><td>Obrigatório apenas nas modalidades com sistema de faixas (RF06).</td></tr>
+      <tr><td class="attr">DT_GRADUACAO</td><td>date</td><td>Sim</td><td>Data em que o exame/graduação ocorreu.</td></tr>
+      <tr><td class="attr">DS_OBSERVACAO</td><td>text</td><td>Não</td><td>Complementa a avaliação quando não há sistema de faixas.</td></tr>
+    </tbody>
+  </table>
+  <p class="indices">PK ID_GRADUACAO; índice em ID_ALUNO; índice em ID_MODALIDADE.</p>
+
+  <div class="card-note">
+    <strong>Nota sobre dados sensíveis:</strong> CPF (ALUNO, PROFESSOR) e DS_PROBLEMA_SAUDE (ALUNO, PROFESSOR) são dados de identificação e de saúde, respectivamente — sujeitos à LGPD. O acesso a esses campos deve ficar restrito à administração da academia, conforme já indicado pelo RNF02 no README.
+  </div>
+
+  <footer class="doc-footer">
+    Dicionário de Dados — Sistema de Gestão Base Forte Leste · Entrega 1, Modelagem de Banco de Dados · Prof. Cid Rodrigues De Andrade
+  </footer>
+
+</div>
+</body>
+</html>
