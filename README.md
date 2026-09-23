@@ -9,7 +9,7 @@
 * **Nome do Aluno 5:** Williams Vargas Neves Paoli dos Santos - **RGM:** 47336820
 * **Professor/Disciplina:** Cid Rodrigues De Andrade - Modelagem de Banco de Dados
 
-\---
+---
 
 # Título 
 Modelagem de Banco de Dados Relacional para o Sistema de Gestão da Academia Base Forte Leste.
@@ -49,7 +49,7 @@ Este trabalho delimita-se à modelagem conceitual do banco de dados, não contem
   * *Entrevista de Campo:* Realizada presencialmente em 01/09/2026 pelo aluno Nickolas Henrique Bezerra com o CEO Adalberto.
 
 
-\---
+---
 
 ## 2\. Processos de Negócio
 
@@ -59,7 +59,7 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 * **Processo de Mensalidade:** A academia trabalha com os planos Mensal, Trimestral, Anual e Família. O vencimento é fixo (todo 5º dia útil). O controle é feito de forma manual pelo WhatsApp, registrando apenas a data em que o aluno pagou.
 * **Processo de Graduação e Frequência:** Atualmente, a presença nas aulas **não é registrada** de forma alguma. No entanto, a frequência deveria influenciar diretamente na elegibilidade para os exames de faixa (nas modalidades que possuem faixa) ou na análise técnica (como no Boxe). A evolução hoje depende da percepção visual do professor.
 
-\---
+---
 
 ## 3\. Requisitos do Sistema
 
@@ -81,7 +81,7 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 * **RNF05 (Exclusividade do Professor):** Um professor só pode ser associado e ministrar aulas na modalidade em que possui propriedade/especialização.
 * **RNF06 (Trancamento por Lesão):** O aluno pode alterar seu status para "Trancado" caso sofra uma lesão, interrompendo temporariamente a cobrança ou contagem de tempo.
 
-\---
+---
 
 ## 4\. Regras de Negócio (Restrições e regras de funcionamento)
 
@@ -99,14 +99,15 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 - Se o aluno ultrapassar a data de vencimento sem confirmação de pagamento, o acesso à academia é bloqueado.
 
 
-\---
+---
 
 ## 5\. Dicionário de Dados Conceitual (Preliminar)
 
 Abaixo está o dicionário de dados completo, com todas as entidades e atributos que constam no Diagrama Entidade-Relacionamento (Seção 7):
 
 [![Website Preview Screenshot](imgs/dicionario.png)](https://williamsvargas-code.github.io/Readme_academia/)
-\---
+
+---
 
 ## 6\. Modelagem Conceitual
 
@@ -124,19 +125,21 @@ Abaixo está o dicionário de dados completo, com todas as entidades e atributos
 * **PROFESSOR rege TURMA (1,1 para 0,N):** Cada turma precisa de um professor responsável.
 * **TURMA possui ALUNOS (1,N para 0,N):** Uma turma tem vários alunos (máximo 30) e um aluno pode participar de mais de uma turma/modalidade.
 
-\---
+---
 
 ## 7\. Diagrama Entidade-Relacionamento (DER)
-!\[Diagrama Entidade Relacionamento]<img width="1269" height="765" alt="diagrama" src="https://github.com/user-attachments/assets/8fdb0a65-903a-4281-bb04-a3f3ea9534f3" />
+<img width="2082" height="1485" alt="diagrama_er" src="https://github.com/user-attachments/assets/fa51491e-0f55-4ae7-996e-0fabf82dd838" />
 
 
-\---
+
+
+---
 
 ## 8\. Justificativa Técnica
 
 Como o grupo é iniciante na disciplina, optamos por uma abordagem direta e focada nos problemas críticos relatados pelo CEO Adalberto: mensalidades e frequência. Criamos a entidade **PRESENCA** separada do **ALUNO** porque mapeamos que a frequência é o dado que o professor precisa para avaliar a troca de faixa. Se guardássemos apenas a "última presença" no cadastro do aluno, a academia continuaria sem o histórico necessário para os certificados de graduação. A separação das entidades garante que o banco de dados resolva a desorganização atual sem inflar a complexidade do modelo nesta primeira entrega.
 
-\---
+---
 
 ## 9\. Uso de Inteligência Artificial
 
