@@ -128,7 +128,7 @@ Abaixo está o dicionário de dados completo em uma imagem **clicável**, com to
 ---
 
 ## 7\. Diagrama Entidade-Relacionamento (DER)
-<img width="2082" height="1485" alt="diagrama_er" src="https://github.com/user-attachments/assets/fa51491e-0f55-4ae7-996e-0fabf82dd838" />
+<img width="2082" height="1485" alt="diagrama_er" src="diagrama_er.png" />
 
 
 
