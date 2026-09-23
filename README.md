@@ -105,7 +105,7 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 
 Abaixo está o dicionário de dados completo em uma imagem **clicável**, com todas as entidades e atributos que constam no Diagrama Entidade-Relacionamento (Seção 7):
 
-[![Website Preview Screenshot](imgs/dicionario.png)](https://williamsvargas-code.github.io/Readme_academia/)
+[![Website Preview Screenshot](img_preview_dicionario.png)](https://williamsvargas-code.github.io/Readme_academia/)
 
 ---
 
