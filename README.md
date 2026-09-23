@@ -86,18 +86,93 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 
 ## 4\. Regras de Negócio (Restrições e regras de funcionamento)
 
- Um aluno pode praticar mais de uma modalidade, limitado apenas por sua disponibilidade de horário (relação N:N entre Aluno e Turma, mediada pela Matrícula).
-- Um aluno só pode ter o status "trancado" em caso de lesão comprovada; o atributo de status exige um motivo de trancamento associado.
-- O status do aluno segue um domínio fechado de valores: *ativo* (mensalidade em dia), *inativo* ou *trancado* (por lesão).
-- Cada professor leciona exclusivamente em sua modalidade de especialização (restrição de integridade entre Usuário, no papel de Professor, e Modalidade).
-- Uma modalidade pode ter várias turmas, divididas por horário e dia da semana.
-- Uma turma não pode receber novas matrículas ao atingir 30 alunos.
-- O "instrutor auxiliar" não é uma entidade própria: é um papel que um Aluno assume dentro de uma turma, condicionado à sua graduação na prática, o aluno mais graduado daquela turma/modalidade, que auxilia o professor responsável.
-- A data de matrícula é sempre registrada no cadastro (atributo obrigatório).
-- Existem quatro planos de mensalidade (mensal, trimestral, anual e família), cada um com preços e condições próprias.
-- Descontos são vinculados ao plano contratado, nunca ao aluno isoladamente.
-- O vencimento da mensalidade ocorre sempre no quinto dia útil do mês
-- Se o aluno ultrapassar a data de vencimento sem confirmação de pagamento, o acesso à academia é bloqueado.
+4.1 Regras Operacionais
+
+(Condições e processos de funcionamento estipulados pela administração da academia)
+
+RO01 - Composição e Tipos de Planos Financeiros:
+
+    A Regra: A academia comercializa os seus serviços sob quatro categorias de contratos fechados: Mensal, Trimestral, Anual e Família.
+
+    Impacto no Sistema: Esta regra define um domínio fechado de opções para a tabela MATRICULA. O sistema deve utilizar esse plano
+    para calcular automaticamente a geração das faturas na tabela MENSALIDADE e aplicar os descontos correspondentes a cada pacote.
+
+RO02 - Padronização do Vencimento de Mensalidades:
+
+    A Regra: Independentemente do dia em que o aluno realizou a sua matrícula, a data de vencimento da mensalidade é padronizada 
+    para o 5º (quinto) dia útil de cada mês.
+
+    Impacto no Sistema: O sistema não utilizará datas dinâmicas (ex: "dia 15 de cada mês") para as cobranças. 
+    A lógica de negócio precisará de calcular sistemicamente qual é o 5º dia útil do mês vigente para preencher o atributo data_vencimento.
+
+RO03 - Obrigatoriedade de Frequência para Graduação:
+
+    A Regra: O aluno só pode ser submetido ao exame de mudança de faixa se possuir um histórico consolidado de tempo de treino e 
+    presença constante nas aulas daquela modalidade.
+
+    Impacto no Sistema: O sistema deverá realizar um COUNT (contagem) dos registos da tabela PRESENCA de um aluno antes de habilitar a
+    inserção de um novo registo na tabela GRADUACAO.
+
+RO04 - Papel do Instrutor Auxiliar (Sem Entidade Própria):
+
+    A Regra: O "instrutor auxiliar" não é um funcionário contratado e, portanto, não possui uma tabela própria no banco de dados. 
+    Ele é um aluno veterano (de alta graduação) que auxilia o professor titular.
+
+    Impacto no Sistema: Evita redundância de dados. O controlo sistémico de quem é o instrutor da turma será feito através de um
+    relacionamento ou de uma flag de "cargo" a apontar diretamente para um registo já existente na tabela ALUNO.
+
+RO05 - Exceção no Sistema de Avaliação (Regra do Boxe):
+
+    A Regra: Diferente do Jiu-Jitsu ou do Muay Thai, a modalidade de Boxe não utiliza um sistema de graduação por faixas. 
+    A evolução é medida exclusivamente por tempo e análise técnica.
+
+    Impacto no Sistema: A tabela MODALIDADE possui um atributo booleano (possui_exame_faixa). Quando esta flag for falsa, 
+    o sistema isentará os alunos daquela turma das validações de exames da tabela GRADUACAO.
+
+4.2 Restrições Organizacionais
+
+(Limitações físicas, lógicas e políticas que impõem barreiras ao modelo de dados)
+
+RE01 - Capacidade Máxima e Teto Operacional de Turmas:
+
+    A Restrição: Por limitações de espaço físico e para garantir a qualidade do ensino, nenhuma turma pode ultrapassar a marca de 30 (trinta) alunos em simultâneo.
+
+    Por que importa: É uma restrição de integridade fundamental. O banco de dados precisará de contar com uma trava sistémica 
+    (trigger ou validação de aplicação) que bloqueie a vinculação de um novo aluno a uma TURMA se a contagem de matrículas ativas daquela aula chegar a 30.
+
+RE02 - Condicionalidade Médica para Trancamento:
+
+    A Restrição: O congelamento de uma matrícula (trancamento) é proibido por motivos pessoais ou viagens, sendo sistemicamente
+    libertado apenas sob justificativa de lesão física ou atestado de saúde.
+
+    Por que importa: Protege a academia contra a evasão de receita. O sistema deve exigir a inclusão de um "motivo de afastamento"
+    sempre que o estado for alterado para "Trancado".
+
+RE03 - Exclusividade de Especialização Docente:
+
+    A Restrição: Um professor é estritamente proibido de ministrar aulas em modalidades que fujam da sua especialização formal cadastrada.
+
+    Por que importa: Garante a credibilidade marcial da BASE FORTE LESTE. No banco de dados, a tabela de relacionamento entre PROFESSOR e TURMA
+    só permitirá a alocação se o atributo da modalidade do professor for idêntico ao da turma escolhida.
+
+RE04 - Integridade do Domínio de Status Cadastral:
+
+    A Restrição: O estado do vínculo de um aluno com a instituição deve obedecer a uma categorização rígida: Ativo (pagante regular), 
+    Inativo (inadimplente ou cancelado) ou Trancado (afastado por lesão).
+
+    Por que importa: Impede dados inconsistentes ou estados inexistentes (como "semi-ativo" ou "a aguardar"). O atributo de status no banco terá
+    uma cláusula restritiva (restrição CHECK ou ENUM) a limitar as entradas a esses três valores precisos.
+
+RE05 - Bloqueio Automatizado de Catraca por Inadimplência:
+
+    A Restrição: O acesso físico às dependências de treino é imediatamente revogado se houver uma mensalidade não quitada após o seu respetivo vencimento (5º dia útil).
+
+    Por que importa: É a solução direta para a principal "crise operacional" apontada pelo CEO Adalberto. A consulta (SELECT) que
+    liberta a catraca fará um cruzamento (JOIN) em tempo real entre o ALUNO, a MATRICULA e a MENSALIDADE. Se houver status_pagamento = 'Pendente'
+    com a data vencida, o sistema retornará 'Bloqueado', a barrar o aluno e a impedir o registo na tabela de PRESENCA.
+
+
+---
 
 
 ---
