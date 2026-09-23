@@ -45,6 +45,7 @@ Este trabalho delimita-se à modelagem conceitual do banco de dados, não contem
 - Telefone: (11) 98495-5601 
 - E-mail: basefortelesteacademia@gmail.com
 - Rede social: Instagram @basefortelesteacademia
+- Levantamento de Requisitos feito pelo integrante Nickolas: [Levantamento de Requisitos](levantamento_requisitos.pdf)
 
   * *Entrevista de Campo:* Realizada presencialmente em 01/09/2026 pelo aluno Nickolas Henrique Bezerra com o CEO Adalberto.
 
