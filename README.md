@@ -67,24 +67,64 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 
 ## 3\. Requisitos do Sistema
 
-### 3.1 Requisitos Funcionais (O que o sistema deve fazer)
+### 3.1 Requisitos funcionais
 
-* **RF01:** O sistema deve permitir o cadastro de alunos salvando nome, CPF, idade, problema de saúde histórico de treinos anteriores e situação (Ativo, Inativo ou Trancado).
-* **RF02:** O sistema deve permitir o cadastro de professores sejam vinculando cada um à sua respectiva modalidade.
-* **RF03:** O sistema deve permitir o cadastro de turmas, definindo a modalidade, os dias/horários das aulas e associando um professor responsável.
-* **RF04:** O sistema deve registrar os pagamentos das mensalidades, identificando o plano escolhido (mensal, trimestral, anual ou família) e a data do pagamento.
-* **RF05:** O sistema deve registrar a frequência diária (presença) dos alunos nas aulas.
-* **RF06:** O sistema deve permitir o registro do histórico de graduações e exames de faixa dos alunos com suas respectivas datas.
+- RF01 - Gestão de Cadastro de Alunos: 
 
-### 3.2 Requisitos Não Funcionais (Características de qualidade)
+        O sistema deve permitir o cadastro e a manutenção dos dados dos alunos, armazenando o nome, CPF, 
+        data de nascimento, problemas de saúde, histórico de treinos anteriores e o status de vínculo (Ativo, Inativo ou Trancado).
 
-* **RNF01 (Integração):** O banco de dados deve ser estruturado de forma a permitir uma futura integração com um sistema de catraca por reconhecimento facial.
-* **RNF02 (Segurança):** O sistema deve garantir a privacidade dos dados sensíveis dos alunos (como CPF e Problemas de saúde).
-* **RNF03 (Vencimento Fixo):** Toda mensalidade possui como data padrão de vencimento o quinto dia útil de cada mês.
-* **RNF04 (Limite de Alunos):** Uma turma não pode ultrapassar o limite máximo de 30 (trinta) alunos matriculados.
-* **RNF05 (Exclusividade do Professor):** Um professor só pode ser associado e ministrar aulas na modalidade em que possui propriedade/especialização.
-* **RNF06 (Trancamento por Lesão):** O aluno pode alterar seu status para "Trancado" caso sofra uma lesão, interrompendo temporariamente a cobrança ou contagem de tempo.
+- RF02 - Cadastro e Especialização de Professores: 
 
+        O sistema deve permitir o cadastro dos professores da academia, vinculando obrigatoriamente cada docente à sua respetiva modalidade de atuação.
+
+- RF03 - Estruturação de Turmas e Horários: 
+
+        O sistema deve permitir a criação de turmas, definindo a qual modalidade pertencem, 
+        os dias e horários das aulas, e associando um professor responsável.
+
+- RF04 - Gestão Financeira e Mensalidades: 
+
+        O sistema deve registar a geração e o pagamento das faturas de mensalidade, identificando qual
+        foi o plano contratado pelo aluno (Mensal, trimestral, anual ou família) e a data exata da liquidação.
+
+- RF05 - Controle Diário de Presença:
+
+        O sistema deve registar a frequência (presença) dos alunos de forma diária em cada aula que frequentam.
+
+- RF06 - Registo Histórico de Graduação: 
+        
+        O sistema deve permitir documentar o avanço dos alunos através do registo do histórico de
+        graduações e exames de faixa, guardando as datas de cada conquista.
+
+### 3.2 Requisitos não funcionais:
+
+- RNF01 - Integração Biométrica (Escalabilidade): 
+        
+        O banco de dados deve ser arquitetado de forma a suportar uma futura integração com hardware de
+        catraca de acesso acionado por reconhecimento facial.
+
+- RNF02 - Segurança e Privacidade (LGPD): 
+    
+        O sistema deve garantir o sigilo de dados sensíveis dos alunos (especificamente o CPF e os registos de problemas de saúde).
+
+- RNF03 - Vencimento Fixo Padronizado: 
+    
+        Independentemente da data de matrícula, o motor financeiro deve padronizar o vencimento
+        de todas as mensalidades para o quinto dia útil de cada mês.
+
+- RNF04 - Limite Operacional de Alunos: 
+    
+        O sistema deve impedir tecnicamente que uma turma ultrapasse o teto máximo de 30 (trinta) alunos simultâneos.
+
+- RNF05 - Exclusividade de Ensino do Professor: 
+    
+        Uma barreira sistémica deve garantir que um professor seja associado apenas a turmas da modalidade na qual é especialista.
+
+- RNF06 - Regras Estritas de Trancamento: 
+    
+        O sistema só deve permitir a alteração do status do aluno para "Trancado" mediante o preenchimento
+        de uma justificativa médica (lesão), bloqueando a cobrança e a contagem de tempo do plano atual.
 ---
 
 ## 4\. Regras de Negócio (Restrições e regras de funcionamento)
