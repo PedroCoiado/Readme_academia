@@ -129,93 +129,61 @@ Mapeamos os três principais fluxos de funcionamento da academia com base na ent
 
 ## 4\. Regras de Negócio (Restrições e regras de funcionamento)
 
-4.1 Regras Operacionais
-
+### 4.1 Regras Operacionais
 (Condições e processos de funcionamento estipulados pela administração da academia)
 
-RO01 - Composição e Tipos de Planos Financeiros:
+RO01 - Composição e Tipos de Planos Financeiros
 
-    A Regra: A academia comercializa os seus serviços sob quatro categorias de contratos fechados: Mensal, Trimestral, Anual e Família.
+    A academia de artes marciais oferece planos de adesão nas modalidades: Mensal, Trimestral, Anual e Familiar, 
+    vinculados às aulas de artes marciais (Muay Thai, Kickboxing, Jiu-Jitsu, Boxe, Capoeira e No-Gi.). O sistema deve calcular 
+    automaticamente as mensalidadese aplicar descontos específicos para pacotes de longa duração ou familiares.
 
-    Impacto no Sistema: Esta regra define um domínio fechado de opções para a tabela MATRICULA. O sistema deve utilizar esse plano
-    para calcular automaticamente a geração das faturas na tabela MENSALIDADE e aplicar os descontos correspondentes a cada pacote.
+RO02 - Padronização do Vencimento de Mensalidades
 
-RO02 - Padronização do Vencimento de Mensalidades:
+    Para todos os alunos matriculados, o vencimento das mensalidades ocorre sempre no 5º dia útil do mês,
+    garantindo uniformidade na cobrança e evitando datas variáveis de pagamento.
 
-    A Regra: Independentemente do dia em que o aluno realizou a sua matrícula, a data de vencimento da mensalidade é padronizada 
-    para o 5º (quinto) dia útil de cada mês.
+RO03 - Obrigatoriedade de Frequência para Graduação
 
-    Impacto no Sistema: O sistema não utilizará datas dinâmicas (ex: "dia 15 de cada mês") para as cobranças. 
-    A lógica de negócio precisará de calcular sistemicamente qual é o 5º dia útil do mês vigente para preencher o atributo data_vencimento.
+    O aluno só poderá realizar exames de graduação (troca de faixa ou nível) se tiver frequência mínima comprovada nas aulas da modalidade, 
+    registrada na tabela de presença, assegurando que a evolução técnica esteja alinhada ao tempo de prática.
 
-RO03 - Obrigatoriedade de Frequência para Graduação:
+RO04 - Papel do Instrutor Auxiliar (Sem Entidade Própria)
 
-    A Regra: O aluno só pode ser submetido ao exame de mudança de faixa se possuir um histórico consolidado de tempo de treino e 
-    presença constante nas aulas daquela modalidade.
+    Nas turmas de artes marciais, o instrutor auxiliar será sempre um aluno graduado que apoia o professor titular. 
 
-    Impacto no Sistema: O sistema deverá realizar um COUNT (contagem) dos registos da tabela PRESENCA de um aluno antes de habilitar a
-    inserção de um novo registo na tabela GRADUACAO.
 
-RO04 - Papel do Instrutor Auxiliar (Sem Entidade Própria):
+RO05 - Exceção no Sistema de Avaliação (Regra do Boxe)
 
-    A Regra: O "instrutor auxiliar" não é um funcionário contratado e, portanto, não possui uma tabela própria no banco de dados. 
-    Ele é um aluno veterano (de alta graduação) que auxilia o professor titular.
+    Na modalidade de Boxe, não há exames de graduação por faixas. A evolução é medida por tempo de prática e avaliação técnica do professor. 
 
-    Impacto no Sistema: Evita redundância de dados. O controlo sistémico de quem é o instrutor da turma será feito através de um
-    relacionamento ou de uma flag de "cargo" a apontar diretamente para um registo já existente na tabela ALUNO.
-
-RO05 - Exceção no Sistema de Avaliação (Regra do Boxe):
-
-    A Regra: Diferente do Jiu-Jitsu ou do Muay Thai, a modalidade de Boxe não utiliza um sistema de graduação por faixas. 
-    A evolução é medida exclusivamente por tempo e análise técnica.
-
-    Impacto no Sistema: A tabela MODALIDADE possui um atributo booleano (possui_exame_faixa). Quando esta flag for falsa, 
-    o sistema isentará os alunos daquela turma das validações de exames da tabela GRADUACAO.
-
-4.2 Restrições Organizacionais
-
+### 4.2 Restrições Organizacionais
 (Limitações físicas, lógicas e políticas que impõem barreiras ao modelo de dados)
 
-RE01 - Capacidade Máxima e Teto Operacional de Turmas:
+RE01 - Capacidade Máxima e Teto Operacional de Turmas
 
-    A Restrição: Por limitações de espaço físico e para garantir a qualidade do ensino, nenhuma turma pode ultrapassar a marca de 30 (trinta) alunos em simultâneo.
+    Cada turma de artes marciais terá limite máximo de 30 alunos ativos, garantindo qualidade no ensino e segurança durante os treinos.
+    O sistema deve bloquear novas matrículas quando esse limite for atingido.
 
-    Por que importa: É uma restrição de integridade fundamental. O banco de dados precisará de contar com uma trava sistémica 
-    (trigger ou validação de aplicação) que bloqueie a vinculação de um novo aluno a uma TURMA se a contagem de matrículas ativas daquela aula chegar a 30.
+RE02 - Condicionalidade Médica para Trancamento
 
-RE02 - Condicionalidade Médica para Trancamento:
+    O aluno só poderá trancar sua matrícula em artes marciais mediante apresentação de atestado médico ou justificativa de lesão. 
+    O sistema deve exigir o motivo registrado para validar o status "Trancado".
 
-    A Restrição: O congelamento de uma matrícula (trancamento) é proibido por motivos pessoais ou viagens, sendo sistemicamente
-    libertado apenas sob justificativa de lesão física ou atestado de saúde.
+RE03 - Exclusividade de Especialização Docente
 
-    Por que importa: Protege a academia contra a evasão de receita. O sistema deve exigir a inclusão de um "motivo de afastamento"
-    sempre que o estado for alterado para "Trancado".
+    Professores de artes marciais só poderão ser vinculados a turmas da modalidade em que possuem graduação reconhecida 
+    (ex.: faixa preta em Jiu-Jitsu, instrutor certificado em Muay Thai). O sistema deve validar a correspondência entre professor e modalidade.
 
-RE03 - Exclusividade de Especialização Docente:
+RE04 - Integridade do Domínio de Status Cadastral
 
-    A Restrição: Um professor é estritamente proibido de ministrar aulas em modalidades que fujam da sua especialização formal cadastrada.
+    O vínculo do aluno com a academia de artes marciais deve estar restrito aos estados: Ativo (pagante regular), 
+    Inativo (inadimplente ou cancelado) ou Trancado (afastado por lesão). O sistema deve impedir registros fora desses três valores.
 
-    Por que importa: Garante a credibilidade marcial da BASE FORTE LESTE. No banco de dados, a tabela de relacionamento entre PROFESSOR e TURMA
-    só permitirá a alocação se o atributo da modalidade do professor for idêntico ao da turma escolhida.
+RE05 - Bloqueio Automatizado de Catraca por Inadimplência
 
-RE04 - Integridade do Domínio de Status Cadastral:
-
-    A Restrição: O estado do vínculo de um aluno com a instituição deve obedecer a uma categorização rígida: Ativo (pagante regular), 
-    Inativo (inadimplente ou cancelado) ou Trancado (afastado por lesão).
-
-    Por que importa: Impede dados inconsistentes ou estados inexistentes (como "semi-ativo" ou "a aguardar"). O atributo de status no banco terá
-    uma cláusula restritiva (restrição CHECK ou ENUM) a limitar as entradas a esses três valores precisos.
-
-RE05 - Bloqueio Automatizado de Catraca por Inadimplência:
-
-    A Restrição: O acesso físico às dependências de treino é imediatamente revogado se houver uma mensalidade não quitada após o seu respetivo vencimento (5º dia útil).
-
-    Por que importa: É a solução direta para a principal "crise operacional" apontada pelo CEO Adalberto. A consulta (SELECT) que
-    liberta a catraca fará um cruzamento (JOIN) em tempo real entre o ALUNO, a MATRICULA e a MENSALIDADE. Se houver status_pagamento = 'Pendente'
-    com a data vencida, o sistema retornará 'Bloqueado', a barrar o aluno e a impedir o registo na tabela de PRESENCA.
-
-
----
+    O sistema de catraca da academia de artes marciais deve bloquear automaticamente o acesso do aluno inadimplente após o 5º dia útil do mês. 
+    O cruzamento entre “ID_Aluno” e Pagamento devem retornar "Bloqueado" e impedir registro de presença.
 
 
 ---
